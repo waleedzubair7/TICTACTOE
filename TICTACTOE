@@ -1,0 +1,89 @@
+#include <stdio.h>
+
+void Printboard();
+int Check();
+char Board[] = {'0','1','2','3','4','5','6','7','8','9'};
+
+// Function to print board
+void Printboard() {
+    printf("		|		|		\n");
+    printf("	%c	|	%c	|	%c		\n",Board[1],Board[2],Board[3]);
+    printf("	________|_______________|__________\n");
+    printf("		|		|		\n");
+    printf("	%c	|	%c	|	%c	\n",Board[4],Board[5],Board[6]);
+    printf("	________|_______________|__________\n");
+    printf("		|		|		\n");
+    printf("	%c	|	%c	|	%c	\n",Board[7],Board[8],Board[9]);
+    printf("\t\t|\t\t|\t\n");
+}
+// Function to check Winner
+int Check(){
+		if(Board[1] == Board[2] && Board[2]==Board[3]){
+		return 1;}
+		if(Board[1] == Board[4] && Board[4] == Board[7]){
+		return 1;}
+		if(Board[7] == Board[8] && Board[8] == Board[9]){
+		return 1;}
+		if(Board[3] == Board[6] && Board[6] == Board[9]){
+		return 1;}
+		if(Board[1] == Board[5] && Board[5] == Board[9]){
+		return 1;}
+		if(Board[3] == Board[5] && Board[5] == Board[7]){
+		return 1;}
+		if(Board[2] == Board[5] && Board[5] == Board[8]){
+		return 1;}
+		if(Board[4] == Board[5] && Board[5] == Board[6]){
+		return 1;}
+	
+	int count=0;
+for(int i = 1; i <= 9; i++) {
+        if(Board[i] == 'X' || Board[i] == 'O') {
+            count++;
+        }
+	}
+	if(count==9){
+	return 0;
+	}
+	return -1;
+}
+// Main Function
+int main() {
+	int player = 1,input,status=-1;
+	  Printboard();
+
+while(status==-1){
+if (player % 2 == 0) {
+    player = 2;
+} else {
+    player = 1;
+}
+char mark;
+if (player == 1) {
+    mark = 'X';
+} else {
+    mark = 'O';
+}
+// player turn
+printf("Player %d Turn : ",player);
+scanf("%d" , &input);
+if(input < 1 || input > 9){
+	printf("Invalid Input\nEnter Again\n");
+}
+  if(Board[input] == 'X' || Board[input] == 'O') {
+      printf("Slot Unavailable.\n");
+      continue;}
+Board[input] = mark;
+	  Printboard();
+	  int result = Check();
+	  if(result==1){
+	  printf("Player -> %d Won" , player);
+	  return 0;
+}
+	  else if(result==0){
+	  printf("Draw");
+	  return 0;
+	  }
+	  player++;
+}
+    return 0;
+}
